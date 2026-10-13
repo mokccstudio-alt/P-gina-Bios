@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaelen (@kaelen) | Vortex.bio</title>
+  <meta name="description" content="Crafting digital experiences & exploring cyber aesthetics. Full-stack dev, anime enthusiast, late night music collector.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050508; color: #f5f5f5; margin: 0; overflow-x: hidden; }
+    .glass-card {
+      background-color: rgba(10, 10, 15, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), 0 0 24px 0 #8b5cf633;
+      border: 1px solid #8b5cf644;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center relative p-4">
+  <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- Splash Screen -->
+  <div id="splash" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/90 backdrop-blur-xl cursor-pointer select-none transition-opacity duration-500">
+    <h1 class="text-xl md:text-2xl font-mono tracking-widest text-neutral-200 animate-pulse">[ click anywhere to enter ]</h1>
+    <p class="text-xs font-mono text-neutral-500 uppercase mt-2">sound will play upon entry</p>
+  </div>
+
+  <!-- Profile Card -->
+  <div class="relative z-10 w-full max-w-[420px] rounded-3xl p-6 glass-card my-8">
+    <div class="flex flex-col items-center text-center">
+      <div class="relative w-24 h-24 rounded-full overflow-hidden border-2 mb-3" style="border-color: #8b5cf6; box-shadow: 0 0 20px #8b5cf688">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80" alt="Kaelen" class="w-full h-full object-cover">
+      </div>
+      <h2 class="text-xl font-bold text-white mb-1">Kaelen</h2>
+      <p class="text-xs text-neutral-400 font-mono mb-3">@kaelen · Tokyo, Japan</p>
+      <p class="text-xs text-neutral-300 leading-relaxed mb-6">Crafting digital experiences & exploring cyber aesthetics. Full-stack dev, anime enthusiast, late night music collector.</p>
+    </div>
+
+    <!-- Links -->
+    <div class="space-y-2 mb-6">
+      
+        <a href="#" target="_self" class="flex items-center justify-between p-3 rounded-xl bg-neutral-900/60 hover:bg-neutral-800/80 border border-neutral-800 transition-all text-neutral-200 text-xs font-medium">
+          <span>Discord</span>
+          <span class="font-mono text-neutral-500">kaelen#0001</span>
+        </a>
+      
+        <a href="https://spotify.com" target="_blank" class="flex items-center justify-between p-3 rounded-xl bg-neutral-900/60 hover:bg-neutral-800/80 border border-neutral-800 transition-all text-neutral-200 text-xs font-medium">
+          <span>Spotify</span>
+          <span class="font-mono text-neutral-500">↗</span>
+        </a>
+      
+        <a href="https://github.com" target="_blank" class="flex items-center justify-between p-3 rounded-xl bg-neutral-900/60 hover:bg-neutral-800/80 border border-neutral-800 transition-all text-neutral-200 text-xs font-medium">
+          <span>GitHub</span>
+          <span class="font-mono text-neutral-500">↗</span>
+        </a>
+      
+        <a href="https://youtube.com" target="_blank" class="flex items-center justify-between p-3 rounded-xl bg-neutral-900/60 hover:bg-neutral-800/80 border border-neutral-800 transition-all text-neutral-200 text-xs font-medium">
+          <span>YouTube</span>
+          <span class="font-mono text-neutral-500">↗</span>
+        </a>
+      
+        <a href="https://x.com" target="_blank" class="flex items-center justify-between p-3 rounded-xl bg-neutral-900/60 hover:bg-neutral-800/80 border border-neutral-800 transition-all text-neutral-200 text-xs font-medium">
+          <span>X / Twitter</span>
+          <span class="font-mono text-neutral-500">↗</span>
+        </a>
+      
+        <a href="#" target="_self" class="flex items-center justify-between p-3 rounded-xl bg-neutral-900/60 hover:bg-neutral-800/80 border border-neutral-800 transition-all text-neutral-200 text-xs font-medium">
+          <span>Steam</span>
+          <span class="font-mono text-neutral-500">kaelen_7</span>
+        </a>
+      
+    </div>
+
+    <div class="pt-3 border-t border-neutral-900 flex items-center justify-between text-[11px] font-mono text-neutral-500">
+      <span>UID: #1337</span>
+      <span class="text-purple-400 font-semibold">vortex.bio</span>
+    </div>
+  </div>
+
+  <script>
+    // Canvas Background
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
+
+    const drops = [];
+    for(let i=0; i<120; i++) drops.push({ x: Math.random()*w, y: Math.random()*h, s: 8+Math.random()*10, l: 15+Math.random()*15 });
+
+    function render() {
+      ctx.fillStyle = '#050508';
+      ctx.fillRect(0,0,w,h);
+      ctx.strokeStyle = 'rgba(180, 200, 255, 0.3)';
+      ctx.lineWidth = 1;
+      drops.forEach(d => {
+        ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x, d.y+d.l); ctx.stroke();
+        d.y += d.s; if(d.y > h) { d.y = -d.l; d.x = Math.random()*w; }
+      });
+      requestAnimationFrame(render);
+    }
+    render();
+
+    // Splash Dismiss
+    const splash = document.getElementById('splash');
+    splash.addEventListener('click', () => {
+      splash.style.opacity = '0';
+      setTimeout(() => splash.style.display = 'none', 500);
+    });
+  </script>
+</body>
+</html>
